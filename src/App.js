@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { ThemeProvider  } from '@material-ui/core/styles';
+import firebase from 'firebase/app';
+import 'firebase/firestore'
+import 'firebase/analytics'
+import theme from './theme'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MainPage from './MainPage'
+import firebaseConfig from './config'
 
-function App() {
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+
+
+const App = () => {
+
+  const coordinates = {
+    waldo: {
+    found: false,
+    img: 'https://i.imgur.com/gVCQw30.jpeg',
+    x: 477,
+    y: 1607
+},
+wally: {
+    found: false,
+    img: 'https://i.imgur.com/iz1mzV1.jpeg', 
+    x: 2110,
+    y: 1425
+},
+smilingguy: {
+    found: false,
+    img: 'https://i.imgur.com/1Pw7QWd.jpg',
+    x: 1377,
+    y: 745
+}}
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <MainPage coordinates={coordinates}/>
+    
+    </ThemeProvider>
   );
 }
 
